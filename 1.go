@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strconv"
 )
@@ -15,33 +14,28 @@ func main() {
 	reader := bufio.NewReader(file)
 	sum := 0
 	c, _, _ := reader.ReadRune()
-	var num int
 	first, _ := strconv.Atoi(string(c))
-	fmt.Printf("first = %d\n", first)
-	num = first
+	cur := first
 	for {
 		c, _, err := reader.ReadRune()
-		fmt.Printf(string(c))
-		if err != nil && err == io.EOF {
+		if err != nil {
 			if err == io.EOF {
 				break
 			} else {
-				log.Fatal(err)
 				break
 			}
 		}
 
 		next, _ := strconv.Atoi(string(c))
-		if num == next {
-			sum += num
+		if cur == next {
+			sum += cur
 		}
 
-		num = next
+		cur = next
 	}
 
-	fmt.Printf("\nlast = %d", num)
-	if num == first {
-		sum += num
+	if cur == first {
+		sum += cur
 	}
 
 	fmt.Printf("sum = %d", sum)
